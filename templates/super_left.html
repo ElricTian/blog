@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html class=" js csstransforms3d"><head>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>公共侧边栏</title>
+	<link rel="stylesheet" href="/static/css/base.css">
+	<link rel="stylesheet" href="/static/css/page.css">
+
+	<script type="text/javascript" src="/static/js/jquery.min.js"></script>
+	<script type="text/javascript" src="/static/js/main.js"></script>
+	<script type="text/javascript" src="/static/js/modernizr.js"></script>
+
+</head>
+
+<body>
+
+	<div class="super-side-menu">
+		<div class="logo"><a href="/" target="_parent"><img src="/static/images/logo.png"></a></div>
+		
+		<div class="side-menu">
+			<ul>
+				<li class="on"><a href="/super_list/" target="Mainindex"><i class="ico-8"></i>站点管理</a></li>
+				<li><a href="/super_label/" target="Mainindex"><i class="ico-9"></i>标签管理</a></li>
+			</ul>
+		</div>
+	</div>
+
+
+<script type="text/javascript">
+	$(function(){
+		$('.side-menu li').click(function(){
+			$(this).addClass('on').siblings().removeClass('on');
+		})
+	})
+</script>
+
+</body>
+</html>
