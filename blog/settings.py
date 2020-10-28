@@ -120,3 +120,5 @@ STATICFILES_DIRS = [
 # 这里将验证码图片存入缓存,在将验证码存入session中
 
 # 报错'set' object is not reversible  urls.py 里的 {}改成 []
+# iframe 跳转只跳转子页面不跳转整个页面 需要使用js跳转 详细查看change_password
+# 后端渲染js中的弹窗提示信息 点击第二次才出现上一次的值

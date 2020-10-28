@@ -54,7 +54,37 @@ def pin_img(request):
 
 
 def change_password(request):
-    return render(request, 'change_psw.html')
+
+    if request.method == 'POST':
+
+        old_password = request.POST.get('old_password')
+        new_password = request.POST.get('new_password')
+        new_password2 = request.POST.get('new_password2')
+
+        if len(old_password) and len(new_password) and len(new_password2) > 0:
+
+            username = request.session.get('username')
+            user_info = User.objects.filter(username=username)
+            cipher = to_hmac.encryption(old_password)
+
+            if user_info[0].password == cipher:
+                if new_password == new_password2:
+                    user = User.objects.get(uid=user_info[0].uid)
+                    new_cipher = to_hmac.encryption(new_password)
+                    user.password = new_cipher
+                    user.save()
+                    error_message = '修改成功,请重新登录'
+                    href = """<html><body onLoad="window.top.location.href='/logout'"></body></html>"""
+                    return HttpResponse(href)
+
+                else:
+                    error_message = '两次输入的新密码不相同!'
+            else:
+                error_message = '请输入正确的旧密码!'
+        else:
+            error_message = '请勿为空!'
+
+    return render(request, 'change_psw.html', locals())
 
 
 def index(request):
