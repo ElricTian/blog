@@ -55,4 +55,7 @@ urlpatterns = [
 
     # 修改资料
     path('system_set/', views.system_set, name='system_set'),
+
+    # 增加数据
+    path('add_data/', views.add_data, name='add_data')
 ]

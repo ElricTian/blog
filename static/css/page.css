@@ -151,6 +151,7 @@
 .defaultTable .t_9 { width: 20%; text-align: center;}
 .defaultTable .t_2_1 { width: 30%; text-align: left;}
 .defaultTable tr:hover { background: #fafafa;}
+
 .defaultTable .btn a { display: inline-block; padding: 0 9px; height: 21px; line-height: 21px; color: #fff; border-radius: 2px; -moz-border-radius: 2px; -webkit-border-radius: 2px; margin: 0 2%;}
 .defaultTable .btn a.Top ,.defaultTable .btn a.look { color: #00843e; border: 1px solid #00843e; cursor: pointer;}
 .defaultTable .btn a.modify { color: #fe990b; border: 1px solid #fe990b;}
@@ -160,6 +161,21 @@
 .defaultTable .btn a.modify:hover { background: #fe990b; color: #fff;}
 .defaultTable .btn a.delete:hover { background: #f23e47; color: #fff;}
 .defaultTable .btn a.Top.toping { background: #00843e; color: #fff;}
+
+.defaultTable .btn button {
+	display: inline-block;
+	padding: 0 9px; height: 21px;
+	line-height: 21px;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	margin: 0 2%;
+	background-color: #fff;
+	color: #F23E47;
+	border: 1px solid#F23E47;
+}
+
+
 
 .pageSelect { position: relative; height: 74px; margin: 0 2%;}
 .pageSelect span { position: absolute; left: 0; top: 0; line-height: 74px; color: #8a8a8a;}

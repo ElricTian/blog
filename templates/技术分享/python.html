@@ -71,6 +71,7 @@
                             </tbody>
                         </table>
                     </div>
+
                     <table border="0" cellspacing="0" cellpadding="0" class="defaultTable defaultTable2">
                         <tbody>
                         {% for article in all_article %}
@@ -81,20 +82,28 @@
                                 </td>
                                 <td class="t_3">{{ article.release_time }}</td>
                                 <td class="t_4">
+
                                     <form method="post">
                                         {% csrf_token %}
                                         <div class="btn">
-                                            <a name='give_like' class="delete">点赞</a>
+
+                                            <button name='give_like'
+                                                    value="{{ article.title }}"
+                                                    class="delete">
+                                                点赞{{ article.like }}
+                                            </button>
                                             <a href="#" class="modify">修改</a>
-                                            <a href="#" class="delete">删除</a>
+                                            <button name='delete_article' value="{{ article.title }}">删除</button>
                                         </div>
                                     </form>
+
                                 </td>
                             </tr>
                         {% endfor %}
                         </tbody>
                     </table>
-                    <!--pages S-->
+
+
                     <div class="pageSelect">
                         <span>共 <b>{{ count_article }}</b> 条 每页 <b>10 </b>条   {{ now_page }}/{{ count_page }}</span>
                         <div class="pageWrap">

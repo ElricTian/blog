@@ -4,7 +4,7 @@ from io import BytesIO
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from App.models import Python, Java, Web, Db, Game, Mobile, User
-from utils import bilibili_spider, to_hmac, generate_pin
+from utils import bilibili_spider, to_hmac, generate_pin, csdn_spider
 
 
 def login(request):
@@ -151,9 +151,30 @@ def release(request):
 def python(request):
     all_article = Python.objects.all().order_by('-release_time')
     count_article = Python.objects.count()
-    search = request.POST.get('search_article')
-    if search:
-        all_article = Python.objects.filter(title__icontains=search)
+
+    if request.method == 'POST':
+        search = request.POST.get('search_article')
+        delete_article_title = request.POST.get('delete_article')
+        give_like = request.POST.get('give_like')
+
+        if search:
+            all_article = Python.objects.filter(title__icontains=search)
+
+        if delete_article_title:
+            try:
+                article = Python.objects.get(title=delete_article_title)
+                if article:
+                    article.delete()
+            except Exception as e:
+                print(e)
+
+        if give_like:
+            print(give_like)
+            article = Python.objects.get(title=give_like)
+            likes = article.like + 1
+            article.like = likes
+            article.save()
+
     return render(request, '技术分享/python.html', locals())
 
 
@@ -227,4 +248,16 @@ def system_set(request):
     return render(request, 'system_set.html')
 
 
+# 增加数据
+def add_data(request):
 
+    all_data = csdn_spider.get_json()
+
+    for data in all_data:
+        if ('java'or'Java') in data['title']:
+            Java.objects.create(**data)
+
+        else:
+            Python.objects.create(**data)
+
+    return HttpResponse('成功')

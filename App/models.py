@@ -158,7 +158,7 @@ class Mobile(models.Model):
 class Python(models.Model):
     author = models.CharField(max_length=255, blank=True, null=True)
     title = models.CharField(max_length=255)
-    release_time = models.DateTimeField(blank=True, null=True)
+    release_time = models.DateTimeField(auto_now_add=True)
     url = models.CharField(max_length=255)
     like = models.IntegerField(blank=True, null=True)
 
