@@ -19,7 +19,7 @@ def get_json():
         url = article['url']
         print(author, title, url)
 
-        data = {'author': author, 'title': title, 'url': url, 'like':0}
+        data = {'author': author, 'title': title, 'url': url, 'like': 0}
         all_data.append(data)
 
     return all_data

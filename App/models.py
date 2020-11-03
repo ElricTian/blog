@@ -122,56 +122,60 @@ class DjangoSession(models.Model):
         db_table = 'django_session'
 
 
-class Game(models.Model):
-    author = models.CharField(max_length=255, blank=True, null=True)
-    title = models.CharField(max_length=255)
-    release_time = models.DateTimeField(blank=True, null=True)
-    url = models.CharField(max_length=255)
-
-    class Meta:
-        managed = False
-        db_table = 'game'
-
-
-class Java(models.Model):
-    author = models.CharField(max_length=255, blank=True, null=True)
-    title = models.CharField(max_length=255)
-    release_time = models.DateTimeField(blank=True, null=True)
-    url = models.CharField(max_length=255)
-
-    class Meta:
-        managed = False
-        db_table = 'java'
-
-
-class Mobile(models.Model):
-    author = models.CharField(max_length=255, blank=True, null=True)
-    title = models.CharField(max_length=255)
-    release_time = models.DateTimeField(blank=True, null=True)
-    url = models.CharField(max_length=255)
-
-    class Meta:
-        managed = False
-        db_table = 'mobile'
-
-
 class Python(models.Model):
     author = models.CharField(max_length=255, blank=True, null=True)
     title = models.CharField(max_length=255)
     release_time = models.DateTimeField(auto_now_add=True)
     url = models.CharField(max_length=255)
-    like = models.IntegerField(blank=True, null=True)
+    like = models.IntegerField(blank=True, null=False, default=0)
 
     class Meta:
         managed = False
         db_table = 'python'
 
 
+class Java(models.Model):
+    author = models.CharField(max_length=255, blank=True, null=True)
+    title = models.CharField(max_length=255)
+    release_time = models.DateTimeField(auto_now_add=True)
+    url = models.CharField(max_length=255)
+    like = models.IntegerField(blank=True, null=False, default=0)
+
+    class Meta:
+        managed = False
+        db_table = 'java'
+
+
+class Game(models.Model):
+    author = models.CharField(max_length=255, blank=True, null=True)
+    title = models.CharField(max_length=255)
+    release_time = models.DateTimeField(auto_now_add=True)
+    url = models.CharField(max_length=255)
+    like = models.IntegerField(blank=True, null=False, default=0)
+
+    class Meta:
+        managed = False
+        db_table = 'game'
+
+
+class Mobile(models.Model):
+    author = models.CharField(max_length=255, blank=True, null=True)
+    title = models.CharField(max_length=255)
+    release_time = models.DateTimeField(auto_now_add=True)
+    url = models.CharField(max_length=255)
+    like = models.IntegerField(blank=True, null=False, default=0)
+
+    class Meta:
+        managed = False
+        db_table = 'mobile'
+
+
 class User(models.Model):
-    uid = models.AutoField(primary_key=True)
-    username = models.CharField(max_length=15)
-    password = models.CharField(max_length=255)
-    regtime = models.DateTimeField(auto_now_add=True)
+    author = models.CharField(max_length=255, blank=True, null=True)
+    title = models.CharField(max_length=255)
+    release_time = models.DateTimeField(auto_now_add=True)
+    url = models.CharField(max_length=255)
+    like = models.IntegerField(blank=True, null=False, default=0)
 
     class Meta:
         managed = False
@@ -181,8 +185,9 @@ class User(models.Model):
 class Web(models.Model):
     author = models.CharField(max_length=255, blank=True, null=True)
     title = models.CharField(max_length=255)
-    release_time = models.DateTimeField(blank=True, null=True)
+    release_time = models.DateTimeField(auto_now_add=True)
     url = models.CharField(max_length=255)
+    like = models.IntegerField(blank=True, null=False, default=0)
 
     class Meta:
         managed = False

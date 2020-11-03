@@ -50,13 +50,13 @@
                         </form>
                     </div>
                 </div>
-                <div class="super-label clearfix">
-
-                    <a href="#">行业新闻<em style="display: none;"></em></a>
-                    <a href="#">技术分享<em style="display: none;"></em></a>
-                    <a href="#">面试经验<em style="display: none;"></em></a>
-
-                </div>
+{#                <div class="super-label clearfix">#}
+{##}
+{#                    <a href="#">行业新闻<em style="display: none;"></em></a>#}
+{#                    <a href="#">技术分享<em style="display: none;"></em></a>#}
+{#                    <a href="#">面试经验<em style="display: none;"></em></a>#}
+{##}
+{#                </div>#}
 
                 <div class="Mian-cont-wrap">
                     <div class="defaultTab-T">
@@ -88,12 +88,14 @@
                                         <div class="btn">
 
                                             <button name='give_like'
-                                                    value="{{ article.title }}"
+                                                    value="{{ article.id }}"
                                                     class="delete">
                                                 点赞{{ article.like }}
                                             </button>
-                                            <a href="#" class="modify">修改</a>
-                                            <button name='delete_article' value="{{ article.title }}">删除</button>
+
+                                            <button name="modify" value="{{ article.id }}">修改</button>
+
+                                            <button name='delete_article' value="{{ article.id }}">删除</button>
                                         </div>
                                     </form>
 

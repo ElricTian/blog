@@ -130,20 +130,21 @@ def release(request):
     url = request.POST.get('url')
     release_time = datetime.datetime.now()
     article = {'author': author, 'title': title, 'url': url, 'release_time': release_time}
-    print(article)
-
-    if select_table == 'python':
-        Python.objects.create(**article)
-    elif select_table == 'java':
-        Java.objects.create(**article)
-    elif select_table == 'web':
-        Web.objects.create(**article)
-    elif select_table == 'db':
-        Db.objects.create(**article)
-    elif select_table == 'game':
-        Game.objects.create(**article)
-    elif select_table == 'mobile':
-        Mobile.objects.create(**article)
+    if request.method == 'POST':
+        if select_table == 'python':
+            Python.objects.create(**article)
+        elif select_table == 'java':
+            Java.objects.create(**article)
+        elif select_table == 'web':
+            Web.objects.create(**article)
+        elif select_table == 'db':
+            Db.objects.create(**article)
+        elif select_table == 'game':
+            Game.objects.create(**article)
+        elif select_table == 'mobile':
+            Mobile.objects.create(**article)
+        href = """<html><body onLoad="window.top.location.href='/'"></body></html>"""
+        return HttpResponse(href)
 
     return render(request, '技术分享/release.html')
 
@@ -156,24 +157,31 @@ def python(request):
         search = request.POST.get('search_article')
         delete_article_title = request.POST.get('delete_article')
         give_like = request.POST.get('give_like')
+        modify_id = request.POST.get('modify')
 
         if search:
+            # 搜索
             all_article = Python.objects.filter(title__icontains=search)
 
         if delete_article_title:
+            # 删除
             try:
-                article = Python.objects.get(title=delete_article_title)
+                article = Python.objects.get(id=delete_article_title)
                 if article:
                     article.delete()
             except Exception as e:
                 print(e)
 
         if give_like:
-            print(give_like)
-            article = Python.objects.get(title=give_like)
-            likes = article.like + 1
-            article.like = likes
+            # 点赞
+            article = Python.objects.get(id=give_like)
+            article.like += 1
             article.save()
+
+        if modify_id:
+            request.session['id'] = modify_id
+            request.session['columns'] = 'python'
+            return redirect('/modify/')
 
     return render(request, '技术分享/python.html', locals())
 
@@ -261,3 +269,44 @@ def add_data(request):
             Python.objects.create(**data)
 
     return HttpResponse('成功')
+
+
+def modify(request):
+    article_id = request.session['id']
+    columns = request.session['columns']
+
+    if columns == 'python':
+        article = Python.objects.get(id=article_id)
+    elif columns == 'java':
+        article = Java.objects.get(id=article_id)
+    elif columns == 'db':
+        article = Db.objects.get(id=article_id)
+    elif columns == 'game':
+        article = Game.objects.get(id=article_id)
+    elif columns == 'mobile':
+        article = Mobile.objects.get(id=article_id)
+    elif columns == 'web':
+        article = Web.objects.get(id=article_id)
+
+    if request.method == 'POST':
+        author = request.POST.get('author')
+        title = request.POST.get('title')
+        url = request.POST.get('url')
+        data = {'author': author, 'title': title, 'url': url}
+
+        if columns == 'python':
+            article = Python.objects.filter(id=article_id).update(**data)
+        elif columns == 'java':
+            article = Java.objects.filter(id=article_id).update(**data)
+        elif columns == 'db':
+            article = Db.objects.filter(id=article_id).update(**data)
+        elif columns == 'game':
+            article = Game.objects.filter(id=article_id).update(**data)
+        elif columns == 'mobile':
+            article = Mobile.objects.filter(id=article_id).update(**data)
+        elif columns == 'web':
+            article = Web.objects.filter(id=article_id).update(**data)
+        href = """<html><body onLoad="window.top.location.href='/'"></body></html>"""
+        return HttpResponse(href)
+
+    return render(request, '技术分享/modify.html', locals())

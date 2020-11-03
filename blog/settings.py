@@ -122,4 +122,6 @@ STATICFILES_DIRS = [
 # 报错'set' object is not reversible  urls.py 里的 {}改成 []
 # iframe 跳转只跳转子页面不跳转整个页面 需要使用js跳转 详细查看change_password
 # 后端渲染js中的弹窗提示信息 点击第二次才出现上一次的值(异步问题需要ajax解决)
-# django.core.exceptions.ImproperlyConfigured: Requested setting INSTALLED_APPS, but settings are not configured. You must either define the environment variable DJANGO_SETTINGS_MODULE or call settings.configure() before accessing settings.报错
+# bug当有重复文章的时候title不是唯一标识 导致查询出错 需要吧id放在网页中(已修改)
+# 返回列表功能 js失效(未解决)
+

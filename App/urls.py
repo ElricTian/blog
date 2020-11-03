@@ -32,6 +32,7 @@ urlpatterns = [
 
 
     # 技术分享
+    path('modify/', views.modify, name='modify'),
     path('release/', views.release, name='release'),
     path('python/', views.python, name='python'),
     path('java/', views.java, name='java'),
