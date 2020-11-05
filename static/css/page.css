@@ -34,7 +34,7 @@
 /*content*/
 .super-header { height: 86px; border-bottom: 1px solid #e5e4ee;}
 .super-header h2 {display: block; float: left; font-weight: normal; font-size: 28px; color: #454545; margin-left: 2%; line-height: 86px;}
-.super-header .head-right { float: right; margin: 33px 19px 0 0;}
+.super-header .head-right { float: right; margin: 15px 19px 0 0;}
 .head-right i.ico-user { display: inline-block; width: 14px; height: 15px; background: url(../images/ico_fabu_other.png) no-repeat 0 -24px; font-size: 16px; margin-right: 9px; position: relative; top: 3px;}
 .userslideDown { display: inline-block; position: relative; height: 50px;}
 .userslideDown a { color: #454545;}

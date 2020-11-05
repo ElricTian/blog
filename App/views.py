@@ -180,54 +180,189 @@ def python(request):
 
         if modify_id:
             request.session['id'] = modify_id
-            request.session['columns'] = 'python'
+            request.session['columns'] = 'Python'
             return redirect('/modify/')
-
     return render(request, '技术分享/python.html', locals())
 
 
 def java(request):
     all_article = Java.objects.all().order_by('-release_time')
     count_article = Java.objects.count()
-    search = request.POST.get('search_article')
-    if search:
-        all_article = Java.objects.filter(title__icontains=search)
+
+    if request.method == 'POST':
+        search = request.POST.get('search_article')
+        delete_article_title = request.POST.get('delete_article')
+        give_like = request.POST.get('give_like')
+        modify_id = request.POST.get('modify')
+
+        if search:
+            # 搜索
+            all_article = Java.objects.filter(title__icontains=search)
+
+        if delete_article_title:
+            # 删除
+            try:
+                article = Java.objects.get(id=delete_article_title)
+                if article:
+                    article.delete()
+            except Exception as e:
+                print(e)
+
+        if give_like:
+            # 点赞
+            article = Java.objects.get(id=give_like)
+            article.like += 1
+            article.save()
+
+        if modify_id:
+            request.session['id'] = modify_id
+            request.session['columns'] = 'java'
+            return redirect('/modify/')
     return render(request, '技术分享/java.html', locals())
 
 
 def web(request):
     all_article = Web.objects.all().order_by('-release_time')
     count_article = Web.objects.count()
-    search = request.POST.get('search_article')
-    if search:
-        all_article = Web.objects.filter(title__icontains=search)
+
+    if request.method == 'POST':
+        search = request.POST.get('search_article')
+        delete_article_title = request.POST.get('delete_article')
+        give_like = request.POST.get('give_like')
+        modify_id = request.POST.get('modify')
+
+        if search:
+            # 搜索
+            all_article = Web.objects.filter(title__icontains=search)
+
+        if delete_article_title:
+            # 删除
+            try:
+                article = Web.objects.get(id=delete_article_title)
+                if article:
+                    article.delete()
+            except Exception as e:
+                print(e)
+
+        if give_like:
+            # 点赞
+            article = Web.objects.get(id=give_like)
+            article.like += 1
+            article.save()
+
+        if modify_id:
+            request.session['id'] = modify_id
+            request.session['columns'] = 'web'
+            return redirect('/modify/')
     return render(request, '技术分享/web.html', locals())
 
 
 def db(request):
     all_article = Db.objects.all().order_by('-release_time')
     count_article = Db.objects.count()
-    search = request.POST.get('search_article')
-    if search:
-        all_article = Db.objects.filter(title__icontains=search)
+
+    if request.method == 'POST':
+        search = request.POST.get('search_article')
+        delete_article_title = request.POST.get('delete_article')
+        give_like = request.POST.get('give_like')
+        modify_id = request.POST.get('modify')
+
+        if search:
+            # 搜索
+            all_article = Db.objects.filter(title__icontains=search)
+
+        if delete_article_title:
+            # 删除
+            try:
+                article = Db.objects.get(id=delete_article_title)
+                if article:
+                    article.delete()
+            except Exception as e:
+                print(e)
+
+        if give_like:
+            # 点赞
+            article = Db.objects.get(id=give_like)
+            article.like += 1
+            article.save()
+
+        if modify_id:
+            request.session['id'] = modify_id
+            request.session['columns'] = 'db'
+            return redirect('/modify/')
     return render(request, '技术分享/db.html', locals())
 
 
 def game(request):
     all_article = Game.objects.all().order_by('-release_time')
     count_article = Game.objects.count()
-    search = request.POST.get('search_article')
-    if search:
-        all_article = Game.objects.filter(title__icontains=search)
+
+    if request.method == 'POST':
+        search = request.POST.get('search_article')
+        delete_article_title = request.POST.get('delete_article')
+        give_like = request.POST.get('give_like')
+        modify_id = request.POST.get('modify')
+
+        if search:
+            # 搜索
+            all_article = Game.objects.filter(title__icontains=search)
+
+        if delete_article_title:
+            # 删除
+            try:
+                article = Game.objects.get(id=delete_article_title)
+                if article:
+                    article.delete()
+            except Exception as e:
+                print(e)
+
+        if give_like:
+            # 点赞
+            article = Game.objects.get(id=give_like)
+            article.like += 1
+            article.save()
+
+        if modify_id:
+            request.session['id'] = modify_id
+            request.session['columns'] = 'game'
+            return redirect('/modify/')
     return render(request, '技术分享/game.html', locals())
 
 
 def mobile(request):
     all_article = Mobile.objects.all().order_by('-release_time')
     count_article = Mobile.objects.count()
-    search = request.POST.get('search_article')
-    if search:
-        all_article = Mobile.objects.filter(title__icontains=search)
+
+    if request.method == 'POST':
+        search = request.POST.get('search_article')
+        delete_article_title = request.POST.get('delete_article')
+        give_like = request.POST.get('give_like')
+        modify_id = request.POST.get('modify')
+
+        if search:
+            # 搜索
+            all_article = Mobile.objects.filter(title__icontains=search)
+
+        if delete_article_title:
+            # 删除
+            try:
+                article = Mobile.objects.get(id=delete_article_title)
+                if article:
+                    article.delete()
+            except Exception as e:
+                print(e)
+
+        if give_like:
+            # 点赞
+            article = Mobile.objects.get(id=give_like)
+            article.like += 1
+            article.save()
+
+        if modify_id:
+            request.session['id'] = modify_id
+            request.session['columns'] = 'mobile'
+            return redirect('/modify/')
+
     return render(request, '技术分享/mobile.html', locals())
 
 
@@ -266,11 +401,12 @@ def add_data(request):
             Java.objects.create(**data)
 
         else:
-            Python.objects.create(**data)
+            Db.objects.create(**data)
 
     return HttpResponse('成功')
 
 
+# 修改数据
 def modify(request):
     article_id = request.session['id']
     columns = request.session['columns']

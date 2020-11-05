@@ -67,15 +67,7 @@ class AuthUserUserPermissions(models.Model):
         unique_together = (('user', 'permission'),)
 
 
-class Db(models.Model):
-    author = models.CharField(max_length=255, blank=True, null=True)
-    title = models.CharField(max_length=255)
-    release_time = models.DateTimeField(blank=True, null=True)
-    url = models.CharField(max_length=255)
 
-    class Meta:
-        managed = False
-        db_table = 'db'
 
 
 class DjangoAdminLog(models.Model):
@@ -192,3 +184,16 @@ class Web(models.Model):
     class Meta:
         managed = False
         db_table = 'web'
+
+
+class Db(models.Model):
+    author = models.CharField(max_length=255, blank=True, null=True)
+    title = models.CharField(max_length=255)
+    release_time = models.DateTimeField(blank=True, null=True)
+    url = models.CharField(max_length=255)
+    like = models.IntegerField(blank=True, null=False, default=0)
+
+    class Meta:
+        managed = False
+        db_table = 'db'
+
