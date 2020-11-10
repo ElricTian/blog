@@ -3,6 +3,7 @@ from io import BytesIO
 
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.core.paginator import Paginator
 from App.models import Python, Java, Web, Db, Game, Mobile, User
 from utils import bilibili_spider, to_hmac, generate_pin, csdn_spider
 
@@ -149,8 +150,22 @@ def release(request):
     return render(request, '技术分享/release.html')
 
 
-def python(request):
-    all_article = Python.objects.all().order_by('-release_time')
+def python(request, page):
+
+    # 所有数据
+    articles = Python.objects.all().order_by('-release_time')
+    # 分页
+    paginator = Paginator(articles, 10)
+    # 共多少页
+    count_page = paginator.num_pages
+    # 当前页
+    now_page = page
+
+    # 每一页
+    pager = paginator.page(page)
+    all_article = pager.object_list
+
+    # 统计一共多少篇文章
     count_article = Python.objects.count()
 
     if request.method == 'POST':

@@ -207,9 +207,5 @@ class Db(models.Model):
         db_table = 'db'
 
 
-class Book(models.Model):
-    book_name = models.CharField(max_length=200, blank=True, null=True)
-    # 外键
-    # 第一个参数:所参照的模型(如果不写参照模型,需要把参照的模型写在这个模型类前面)
-    # 第二个参数:on_delete=models.DO_NOTHING 说明详见图
-    pid = models.ForeignKey('Publisher', models.DO_NOTHING, db_column='pid', null=True)
+
+

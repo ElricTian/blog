@@ -34,6 +34,7 @@ urlpatterns = [
     path('modify/', views.modify, name='modify'),
     path('release/', views.release, name='release'),
     path('python/', views.python, name='python'),
+    path('python/<int:page>', views.python, name='python'),
     path('java/', views.java, name='java'),
     path('web/', views.web, name='web'),
     path('db/', views.db, name='db'),

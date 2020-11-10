@@ -12,6 +12,7 @@
     <script type="text/javascript" src="/static/js/jquery.min.js"></script>
     <script type="text/javascript" src="/static/js/main.js"></script>
     <script type="text/javascript" src="/static/js/modernizr.js"></script>
+
 </head>
 
 <body style="background: #f6f5fa;">
@@ -107,13 +108,19 @@
 
 
                     <div class="pageSelect">
-                        <span>共 <b>{{ count_article }}</b> 条 每页 <b>10 </b>条   {{ now_page }}/{{ count_page }}</span>
+                        <span>共<b>{{ count_article }}</b>条  每页<b>10</b>条   {{ now_page }}/{{ count_page }}</span>
                         <div class="pageWrap">
-                            <a class="pagePre"><i class="ico-pre">&nbsp;</i></a>
-                            <a href="#" class="pagenumb cur">1</a>
-                            <a href="#" class="pagenumb">2</a>
-                            <a href="#" class="pagenumb">3</a>
-                            <a href="#" class="pagenext"><i class="ico-next">&nbsp;</i></a>
+                            {% if pager.has_previous %}
+                            <a href="{{ pager.previous_page_number }}" class="pagePre"><i class="ico-pre">&nbsp;</i></a>
+                            {% endif %}
+                            <a href="#" class="pagenumb cur">{{ now_page }}</a>
+
+                            {% if pager.has_next %}
+                            <a href="{{ pager.next_page_number }}" class="pagenumb">{{ pager.next_page_number }}</a>
+                            <a href="{{ pager.next_page_number|add:1 }}"
+                               class="pagenumb">{{ pager.next_page_number|add:1 }}</a>
+                            <a href="{{ pager.next_page_number }}" class="pagenext"><i class="ico-next">&nbsp;</i></a>
+                            {% endif %}
                         </div>
                     </div>
                     <!--pages E-->
