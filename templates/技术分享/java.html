@@ -28,11 +28,11 @@
             <div class="ctab-Main-title">
                 <ul class="clearfix">
                     <li><a href="/python/1">Python</a></li>
-                    <li class="cur"><a href="/java/">Java</a></li>
-                    <li><a href="/web/">前端</a></li>
-                    <li><a href="/db/">数据库</a></li>
-                    <li><a href="/game/">游戏开发</a></li>
-                    <li><a href="/mobile/">移动开发</a></li>
+                    <li class="cur"><a href="/java/1">Java</a></li>
+                    <li><a href="/web/1">前端</a></li>
+                    <li><a href="/db/1">数据库</a></li>
+                    <li><a href="/game/1">游戏开发</a></li>
+                    <li><a href="/mobile/1">移动开发</a></li>
                 </ul>
             </div>
 
@@ -107,13 +107,28 @@
 
 
                     <div class="pageSelect">
-                        <span>共 <b>{{ count_article }}</b> 条 每页 <b>10 </b>条   {{ now_page }}/{{ count_page }}</span>
+                        <span>共<b>{{ count_article }}</b>条  每页<b>10</b>条   {{ now_page }}/{{ count_page }}</span>
                         <div class="pageWrap">
-                            <a class="pagePre"><i class="ico-pre">&nbsp;</i></a>
-                            <a href="#" class="pagenumb cur">1</a>
-                            <a href="#" class="pagenumb">2</a>
-                            <a href="#" class="pagenumb">3</a>
-                            <a href="#" class="pagenext"><i class="ico-next">&nbsp;</i></a>
+
+                            {% if pager.has_previous %}
+                                <a href="{{ previous_page }}" class="pagePre"><i class="ico-pre">&nbsp;</i></a>
+                                <a href="{{ previous_page }}" class="pagenumb">{{ previous_page }}</a>
+                            {% endif %}
+
+                            <a href="#" class="pagenumb cur">{{ now_page }}</a>
+
+                            {% if pager.has_next %}
+                                <a href="{{ next_page }}" class="pagenumb">{{ next_page }}</a>
+                            {% endif %}
+
+                            {% if nnext_page < count_page %}
+                                <a href="{{ nnext_page }}" class="pagenumb">{{ nnext_page }}</a>
+                            {% endif %}
+
+                            {% if pager.has_next %}
+                                <a href="{{ next_page }}" class="pagenext"><i class="ico-next">&nbsp;</i></a>
+                            {% endif %}
+
                         </div>
                     </div>
                     <!--pages E-->

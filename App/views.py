@@ -160,10 +160,18 @@ def python(request, page):
     count_page = paginator.num_pages
     # 当前页
     now_page = page
-
     # 每一页
     pager = paginator.page(page)
     all_article = pager.object_list
+
+    if pager.has_previous():
+        # 上一页
+        previous_page = pager.previous_page_number()
+    if pager.has_next():
+        # 下一页
+        next_page = pager.next_page_number()
+        # 下下页
+        nnext_page = pager.next_page_number() + 1
 
     # 统计一共多少篇文章
     count_article = Python.objects.count()
@@ -200,8 +208,29 @@ def python(request, page):
     return render(request, '技术分享/python.html', locals())
 
 
-def java(request):
-    all_article = Java.objects.all().order_by('-release_time')
+def java(request, page):
+    # 所有数据
+    articles = Java.objects.all().order_by('-release_time')
+    # 分页
+    paginator = Paginator(articles, 10)
+    # 共多少页
+    count_page = paginator.num_pages
+    # 当前页
+    now_page = page
+    # 每一页
+    pager = paginator.page(page)
+    all_article = pager.object_list
+
+    if pager.has_previous():
+        # 上一页
+        previous_page = pager.previous_page_number()
+    if pager.has_next():
+        # 下一页
+        next_page = pager.next_page_number()
+        # 下下页
+        nnext_page = pager.next_page_number() + 1
+
+    # 统计一共多少篇文章
     count_article = Java.objects.count()
 
     if request.method == 'POST':
@@ -236,8 +265,29 @@ def java(request):
     return render(request, '技术分享/java.html', locals())
 
 
-def web(request):
-    all_article = Web.objects.all().order_by('-release_time')
+def web(request, page):
+    # 所有数据
+    articles = Web.objects.all().order_by('-release_time')
+    # 分页
+    paginator = Paginator(articles, 10)
+    # 共多少页
+    count_page = paginator.num_pages
+    # 当前页
+    now_page = page
+    # 每一页
+    pager = paginator.page(page)
+    all_article = pager.object_list
+
+    if pager.has_previous():
+        # 上一页
+        previous_page = pager.previous_page_number()
+    if pager.has_next():
+        # 下一页
+        next_page = pager.next_page_number()
+        # 下下页
+        nnext_page = pager.next_page_number() + 1
+
+    # 统计一共多少篇文章
     count_article = Web.objects.count()
 
     if request.method == 'POST':
@@ -272,8 +322,30 @@ def web(request):
     return render(request, '技术分享/web.html', locals())
 
 
-def db(request):
-    all_article = Db.objects.all().order_by('-release_time')
+def db(request, page):
+    # 所有数据
+    articles = Db.objects.all().order_by('-release_time')
+    # 分页
+    paginator = Paginator(articles, 10)
+    # 共多少页
+    count_page = paginator.num_pages
+    # 当前页
+    now_page = page
+    # 每一页
+    pager = paginator.page(page)
+    all_article = pager.object_list
+
+    if pager.has_previous():
+        # 上一页
+        previous_page = pager.previous_page_number()
+    if pager.has_next():
+        # 下一页
+        next_page = pager.next_page_number()
+
+        # 下下页
+        nnext_page = pager.next_page_number() + 1
+
+    # 统计一共多少篇文章
     count_article = Db.objects.count()
 
     if request.method == 'POST':
@@ -308,8 +380,31 @@ def db(request):
     return render(request, '技术分享/db.html', locals())
 
 
-def game(request):
-    all_article = Game.objects.all().order_by('-release_time')
+def game(request, page):
+    # 所有数据
+    articles = Game.objects.all().order_by('-release_time')
+    # 分页
+    paginator = Paginator(articles, 10)
+    # 共多少页
+    count_page = paginator.num_pages
+    # 当前页
+    now_page = page
+    # 每一页
+    pager = paginator.page(page)
+    all_article = pager.object_list
+
+    if pager.has_previous():
+        # 上一页
+        previous_page = pager.previous_page_number()
+    if pager.has_next():
+        # 下一页
+        next_page = pager.next_page_number()
+        print(next_page)
+        # 下下页
+        nnext_page = pager.next_page_number() + 1
+        print(nnext_page)
+
+    # 统计一共多少篇文章
     count_article = Game.objects.count()
 
     if request.method == 'POST':
@@ -344,8 +439,31 @@ def game(request):
     return render(request, '技术分享/game.html', locals())
 
 
-def mobile(request):
-    all_article = Mobile.objects.all().order_by('-release_time')
+def mobile(request, page):
+    # 所有数据
+    articles = Mobile.objects.all().order_by('-release_time')
+    # 分页
+    paginator = Paginator(articles, 10)
+    # 共多少页
+    count_page = paginator.num_pages
+    # 当前页
+    now_page = page
+    # 每一页
+    pager = paginator.page(page)
+    all_article = pager.object_list
+
+    if pager.has_previous():
+        # 上一页
+        previous_page = pager.previous_page_number()
+    if pager.has_next():
+        # 下一页
+        next_page = pager.next_page_number()
+        print(next_page)
+        # 下下页
+        nnext_page = pager.next_page_number() + 1
+        print(nnext_page)
+
+    # 统计一共多少篇文章
     count_article = Mobile.objects.count()
 
     if request.method == 'POST':
