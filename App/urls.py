@@ -1,6 +1,5 @@
 from django.urls import path, re_path
 from django.views.generic import RedirectView
-
 from App import views
 
 urlpatterns = [
@@ -41,6 +40,8 @@ urlpatterns = [
     path('game/', views.game, name='game'),
     path('mobile/', views.mobile, name='mobile'),
 
+
+    path('manage/', views.manage, name='manage'),
 
 
     # 随机视频

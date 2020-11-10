@@ -446,3 +446,10 @@ def modify(request):
         return HttpResponse(href)
 
     return render(request, '技术分享/modify.html', locals())
+
+
+# 测试单元
+def manage(request):
+    data = Python.python_manage.all()
+    print(data)
+    return HttpResponse('OK')

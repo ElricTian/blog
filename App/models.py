@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Manager
 
 
 class AuthGroup(models.Model):
@@ -67,9 +68,6 @@ class AuthUserUserPermissions(models.Model):
         unique_together = (('user', 'permission'),)
 
 
-
-
-
 class DjangoAdminLog(models.Model):
     action_time = models.DateTimeField()
     object_id = models.TextField(blank=True, null=True)
@@ -114,12 +112,21 @@ class DjangoSession(models.Model):
         db_table = 'django_session'
 
 
+# 自定义管理器
+class MyManager(Manager):
+
+    def get_queryset(self):
+        data = super().get_queryset().filter(like=0)
+        return data
+
+
 class Python(models.Model):
     author = models.CharField(max_length=255, blank=True, null=True)
     title = models.CharField(max_length=255)
     release_time = models.DateTimeField(auto_now_add=True)
     url = models.CharField(max_length=255)
     like = models.IntegerField(blank=True, null=False, default=0)
+    # python_manage = MyManager()
 
     class Meta:
         managed = False
@@ -169,6 +176,7 @@ class User(models.Model):
     url = models.CharField(max_length=255)
     like = models.IntegerField(blank=True, null=False, default=0)
     # 自定义一个新的管理器,名字为new_manage
+    new_manage = Manager()
 
     class Meta:
         managed = False
@@ -198,3 +206,10 @@ class Db(models.Model):
         managed = False
         db_table = 'db'
 
+
+class Book(models.Model):
+    book_name = models.CharField(max_length=200, blank=True, null=True)
+    # 外键
+    # 第一个参数:所参照的模型(如果不写参照模型,需要把参照的模型写在这个模型类前面)
+    # 第二个参数:on_delete=models.DO_NOTHING 说明详见图
+    pid = models.ForeignKey('Publisher', models.DO_NOTHING, db_column='pid', null=True)
