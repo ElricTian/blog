@@ -47,10 +47,10 @@ urlpatterns = [
     # 随机视频
     path('video/', views.video, name='video'),
 
+    # 照片
+    path('picture_content/', views.photos, name='photos'),
     # 相册
-    path('picture_content/', views.picture_content, name='picture_content'),
-    # 相册管理
-    path('picture_management/', views.picture_management, name='picture_management'),
+    path('picture_management/', views.album, name='album'),
 
     # 留言板
     path('message_broad/', views.message_broad, name='message_broad'),

@@ -1,6 +1,5 @@
 import datetime
 from io import BytesIO
-
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
@@ -341,7 +340,6 @@ def db(request, page):
     if pager.has_next():
         # 下一页
         next_page = pager.next_page_number()
-
         # 下下页
         nnext_page = pager.next_page_number() + 1
 
@@ -399,10 +397,8 @@ def game(request, page):
     if pager.has_next():
         # 下一页
         next_page = pager.next_page_number()
-        print(next_page)
         # 下下页
         nnext_page = pager.next_page_number() + 1
-        print(nnext_page)
 
     # 统计一共多少篇文章
     count_article = Game.objects.count()
@@ -458,10 +454,8 @@ def mobile(request, page):
     if pager.has_next():
         # 下一页
         next_page = pager.next_page_number()
-        print(next_page)
         # 下下页
         nnext_page = pager.next_page_number() + 1
-        print(nnext_page)
 
     # 统计一共多少篇文章
     count_article = Mobile.objects.count()
@@ -505,13 +499,14 @@ def video(request):
     return render(request, '视频/video.html', locals())
 
 
-def picture_content(request):
-    """相册管理"""
-    return render(request, 'picture/picture_content.html')
+def photos(request):
+    """照片"""
+    return render(request, 'picture/photos.html')
 
 
-def picture_management(request):
-    return render(request, 'picture/picture_management.html')
+def album(request):
+    """相册"""
+    return render(request, 'picture/album.html')
 
 
 # 留言板
@@ -534,7 +529,7 @@ def add_data(request):
             Java.objects.create(**data)
 
         else:
-            Db.objects.create(**data)
+            Game.objects.create(**data)
 
     return HttpResponse('成功')
 

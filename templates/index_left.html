@@ -1,44 +1,61 @@
+<html class=" js csstransforms3d">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>公共侧边栏</title>
+    <link rel="stylesheet" href="/static/css/base.css">
+    <link rel="stylesheet" href="/static/css/page.css">
+    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/main.js"></script>
+    <script type="text/javascript" src="/static/js/modernizr.js"></script>
 
-<html class=" js csstransforms3d"><head>
-	<meta charset="utf-8">
-	<meta name="renderer" content="webkit">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>公共侧边栏</title>
-	<link rel="stylesheet" href="/static/css/base.css">
-	<link rel="stylesheet" href="/static/css/page.css">
-	<script type="text/javascript" src="/static/js/jquery.min.js"></script>
-	<script type="text/javascript" src="/static/js/main.js"></script>
-	<script type="text/javascript" src="/static/js/modernizr.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/autoload.js"></script>
+    <script type="text/javascript" charset="utf-8"
+            src="https://files.cnblogs.com/files/liuzhou1/L2Dwidget.0.min.js"></script>
+    <script type="text/javascript" charset="utf-8"
+            src="https://files.cnblogs.com/files/liuzhou1/L2Dwidget.min.js"></script>
+    <script type="text/javascript">
+        L2Dwidget.init({
+            "display": {
+                "superSample": 2,
+                "width": 200,
+                "height": 400,
+                "position": "right",
+                "hOffset": 0,
+                "vOffset": 0
+            }
+        });
+    </script>
 </head>
 
 <body>
-	<!--side S-->
-	<div class="super-side-menu">
-		<div class="logo"><a href="/super_index/" target="_parent"><img src="/static/images/blog.png"></a></div>
-		
-		<div class="side-menu">
-			<ul>
-				<li class="on"><a href="/python/" target="Mainindex"><i class="ico-1"></i>技术分享</a></li>
-				<li><a href="/video/" target="Mainindex"><i class="ico-2"></i>随机视频</a></li>
-				<li class=""><a href="/picture_management/" target="Mainindex"><i class="ico-3"></i>相册管理</a></li>
+<!--side S-->
+<div class="super-side-menu">
+    <div class="logo"><a href="/super_index/" target="_parent"><img src="/static/images/blog.png"></a></div>
+
+    <div class="side-menu">
+        <ul>
+            <li class="on"><a href="/python/1" target="Mainindex"><i class="ico-1"></i>技术分享</a></li>
+            <li><a href="/video/" target="Mainindex"><i class="ico-2"></i>随机视频</a></li>
+            <li class=""><a href="/picture_management/" target="Mainindex"><i class="ico-3"></i>相册管理</a></li>
 
 
-				<li><a href="/muban_Guanli/" target="Mainindex"><i class="ico-6"></i>成语接龙</a></li>
-                <li><a href="/message_broad/" target="Mainindex"><i class="ico-5"></i>留  言  板</a></li>
-				<li><a href="/system_set/" target="Mainindex"><i class="ico-7"></i>修改资料</a></li>
-			</ul>
+            <li><a href="/muban_Guanli/" target="Mainindex"><i class="ico-6"></i>成语接龙</a></li>
+            <li><a href="/message_broad/" target="Mainindex"><i class="ico-5"></i>留 言 板</a></li>
+            <li><a href="/system_set/" target="Mainindex"><i class="ico-7"></i>修改资料</a></li>
+        </ul>
 
-		</div>
-	</div>
-	<!--side E-->
+    </div>
+</div>
+<!--side E-->
 
 <script type="text/javascript">
-	$(function(){
-		$('.side-menu li').click(function(){
-			$(this).addClass('on').siblings().removeClass('on');
-		})
-	})
+    $(function () {
+        $('.side-menu li').click(function () {
+            $(this).addClass('on').siblings().removeClass('on');
+        })
+    })
 </script>
 
-</body></html>
+</body>
+</html>
