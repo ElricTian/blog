@@ -10,5 +10,5 @@ def encryption(password):
 
 
 if __name__ == '__main__':
-    password = encryption('654321')
+    password = encryption('9527')
     print(password)

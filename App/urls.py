@@ -41,7 +41,7 @@ urlpatterns = [
     path('mobile/<int:page>', views.mobile, name='mobile'),
 
 
-    path('manage/', views.manage, name='manage'),
+    # path('manage/', views.manage, name='manage'),
 
 
     # 随机视频
@@ -59,5 +59,7 @@ urlpatterns = [
     path('system_set/', views.system_set, name='system_set'),
 
     # 增加数据
-    path('add_data/', views.add_data, name='add_data')
+    path('add_data/', views.add_data, name='add_data'),
+    # django form表单验证
+    path('register', views.register, name='register')
 ]

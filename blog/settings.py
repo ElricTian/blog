@@ -66,8 +66,10 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'blog',
         'USER': 'root',
+        # 'PASSWORD': 'charleW@123'
         'PASSWORD': '123456',
         'PORT': 3306,
+        # 'HOST': '120.55.40.14'
         'HOST': '127.0.0.1',
     }
 }
@@ -124,4 +126,4 @@ STATICFILES_DIRS = [
 # 后端渲染js中的弹窗提示信息 点击第二次才出现上一次的值(异步问题需要ajax解决)
 # bug当有重复文章的时候title不是唯一标识 导致查询出错 需要吧id放在网页中(已修改)
 # 返回列表功能 js失效(未解决)
-
+# 设置cookie信息看不到过期时间,浏览器问题

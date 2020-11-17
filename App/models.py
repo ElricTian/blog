@@ -123,7 +123,7 @@ class MyManager(Manager):
 class Python(models.Model):
     author = models.CharField(max_length=255, blank=True, null=True)
     title = models.CharField(max_length=255)
-    release_time = models.DateTimeField(auto_now_add=True)
+    release_time = models.DateTimeField(blank=False, null=False)
     url = models.CharField(max_length=255)
     like = models.IntegerField(blank=True, null=False, default=0)
     # python_manage = MyManager()
@@ -136,7 +136,7 @@ class Python(models.Model):
 class Java(models.Model):
     author = models.CharField(max_length=255, blank=True, null=True)
     title = models.CharField(max_length=255)
-    release_time = models.DateTimeField(auto_now_add=True)
+    release_time = models.DateTimeField(blank=False, null=False)
     url = models.CharField(max_length=255)
     like = models.IntegerField(blank=True, null=False, default=0)
 
@@ -148,7 +148,7 @@ class Java(models.Model):
 class Game(models.Model):
     author = models.CharField(max_length=255, blank=True, null=True)
     title = models.CharField(max_length=255)
-    release_time = models.DateTimeField(auto_now_add=True)
+    release_time = models.DateTimeField(blank=False, null=False)
     url = models.CharField(max_length=255)
     like = models.IntegerField(blank=True, null=False, default=0)
 
@@ -160,7 +160,7 @@ class Game(models.Model):
 class Mobile(models.Model):
     author = models.CharField(max_length=255, blank=True, null=True)
     title = models.CharField(max_length=255)
-    release_time = models.DateTimeField(auto_now_add=True)
+    release_time = models.DateTimeField(blank=False, null=False)
     url = models.CharField(max_length=255)
     like = models.IntegerField(blank=True, null=False, default=0)
 
@@ -170,13 +170,14 @@ class Mobile(models.Model):
 
 
 class User(models.Model):
-    author = models.CharField(max_length=255, blank=True, null=True)
-    title = models.CharField(max_length=255)
-    release_time = models.DateTimeField(auto_now_add=True)
-    url = models.CharField(max_length=255)
-    like = models.IntegerField(blank=True, null=False, default=0)
+    uid = models.AutoField(primary_key=True)
+    username = models.CharField(max_length=15)
+    password = models.CharField(max_length=255)
+    # 注册时间自动创建
+    regtime = models.DateTimeField(auto_now_add=True)
+
     # 自定义一个新的管理器,名字为new_manage
-    new_manage = Manager()
+    # new_manage = Manager()
 
     class Meta:
         managed = False
@@ -186,7 +187,7 @@ class User(models.Model):
 class Web(models.Model):
     author = models.CharField(max_length=255, blank=True, null=True)
     title = models.CharField(max_length=255)
-    release_time = models.DateTimeField(auto_now_add=True)
+    release_time = models.DateTimeField(blank=False, null=False)
     url = models.CharField(max_length=255)
     like = models.IntegerField(blank=True, null=False, default=0)
 
@@ -198,7 +199,7 @@ class Web(models.Model):
 class Db(models.Model):
     author = models.CharField(max_length=255, blank=True, null=True)
     title = models.CharField(max_length=255)
-    release_time = models.DateTimeField(blank=True, null=True)
+    release_time = models.DateTimeField(blank=False, null=False)
     url = models.CharField(max_length=255)
     like = models.IntegerField(blank=True, null=False, default=0)
 

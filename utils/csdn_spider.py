@@ -1,4 +1,7 @@
+import datetime
+
 import requests
+
 
 def get_json():
 
@@ -13,13 +16,11 @@ def get_json():
     all_data = []
 
     for article in articles:
-
         author = article['nickname']
         title = article['title']
         url = article['url']
-        print(author, title, url)
-
-        data = {'author': author, 'title': title, 'url': url, 'like': 0}
+        release_time = datetime.datetime.now()
+        data = {'author': author, 'title': title, 'url': url, 'like': 0, 'release_time': release_time}
         all_data.append(data)
 
     return all_data

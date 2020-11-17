@@ -3,8 +3,20 @@ from io import BytesIO
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
+
+from App.form import RegisterForm
 from App.models import Python, Java, Web, Db, Game, Mobile, User
 from utils import bilibili_spider, to_hmac, generate_pin, csdn_spider
+
+
+# 装饰器,路由保护 建立session时才能访问
+def check_login(func):
+    def inner(*args, **kwargs):
+        if args[0].session.get('username'):
+            return func(*args, **kwargs)
+        else:
+            return redirect('login')
+    return inner
 
 
 def login(request):
@@ -21,12 +33,17 @@ def login(request):
         if user_info:
             cipher = to_hmac.encryption(password)
 
-            # 将用户名加入session
-            request.session['username'] = username
-
             if user_info[0].password == cipher:
                 if pin == check_code:
-                    return redirect('/')
+                    response = redirect('/')
+                    # 设置cookie过期时间
+                    future = datetime.datetime.now() + datetime.timedelta(days=1)
+                    response.set_cookie('username', username, expires=future)
+                    # 将用户名加入session
+                    request.session['username'] = username
+
+                    return response
+
                 else:
                     message = '验证码错误'
             else:
@@ -37,6 +54,7 @@ def login(request):
     return render(request, 'login.html', locals())
 
 
+@check_login
 def logout(request):
     del request.session['username']
     return redirect('/')
@@ -53,6 +71,7 @@ def pin_img(request):
     return HttpResponse(code_img)
 
 
+@check_login
 def change_password(request):
 
     if request.method == 'POST':
@@ -87,6 +106,7 @@ def change_password(request):
     return render(request, 'change_psw.html', locals())
 
 
+@check_login
 def index(request):
     """主页"""
     if not request.session.get('username'):
@@ -95,40 +115,46 @@ def index(request):
         return render(request, 'index.html')
 
 
+@check_login
 def index_left(request):
     return render(request, 'index_left.html')
 
 
+@check_login
 def index_head(request):
     username = request.session.get('username')
     return render(request, 'index_head.html', locals())
 
 
-# 超级用户
+@check_login
 def super_index(request):
+    """超级模式"""
     return render(request, 'super_index.html')
 
 
+@check_login
 def super_left(request):
     return render(request, 'super_left.html')
 
 
+@check_login
 def super_list(request):
     return render(request, 'super/super_list.html')
 
 
+@check_login
 def super_label(request):
     return render(request, 'super/super_label.html')
 
 
-# 技术分享
+@check_login
 def release(request):
     """发布文章"""
     select_table = request.POST.get('table')
     author = request.POST.get('author')
     title = request.POST.get('title')
     url = request.POST.get('url')
-    release_time = datetime.datetime.now()
+    release_time = request.POST.get('release_time')
     article = {'author': author, 'title': title, 'url': url, 'release_time': release_time}
     if request.method == 'POST':
         if select_table == 'python':
@@ -149,6 +175,7 @@ def release(request):
     return render(request, '技术分享/release.html')
 
 
+@check_login
 def python(request, page):
 
     # 所有数据
@@ -207,6 +234,7 @@ def python(request, page):
     return render(request, '技术分享/python.html', locals())
 
 
+@check_login
 def java(request, page):
     # 所有数据
     articles = Java.objects.all().order_by('-release_time')
@@ -264,6 +292,7 @@ def java(request, page):
     return render(request, '技术分享/java.html', locals())
 
 
+@check_login
 def web(request, page):
     # 所有数据
     articles = Web.objects.all().order_by('-release_time')
@@ -321,6 +350,7 @@ def web(request, page):
     return render(request, '技术分享/web.html', locals())
 
 
+@check_login
 def db(request, page):
     # 所有数据
     articles = Db.objects.all().order_by('-release_time')
@@ -378,6 +408,7 @@ def db(request, page):
     return render(request, '技术分享/db.html', locals())
 
 
+@check_login
 def game(request, page):
     # 所有数据
     articles = Game.objects.all().order_by('-release_time')
@@ -435,6 +466,7 @@ def game(request, page):
     return render(request, '技术分享/game.html', locals())
 
 
+@check_login
 def mobile(request, page):
     # 所有数据
     articles = Mobile.objects.all().order_by('-release_time')
@@ -493,33 +525,39 @@ def mobile(request, page):
     return render(request, '技术分享/mobile.html', locals())
 
 
+@check_login
 def video(request):
     """随机视频"""
     aid = bilibili_spider.get_aid()
     return render(request, '视频/video.html', locals())
 
 
+@check_login
 def photos(request):
     """照片"""
     return render(request, 'picture/photos.html')
 
 
+@check_login
 def album(request):
     """相册"""
     return render(request, 'picture/album.html')
 
 
-# 留言板
+@check_login
 def message_broad(request):
+    """留言板"""
     return render(request, '留言板/zixun_Team.html')
 
 
 # 系统设置
+@check_login
 def system_set(request):
     return render(request, 'system_set.html')
 
 
 # 增加数据
+@check_login
 def add_data(request):
 
     all_data = csdn_spider.get_json()
@@ -534,8 +572,9 @@ def add_data(request):
     return HttpResponse('成功')
 
 
-# 修改数据
+@check_login
 def modify(request):
+    """修改文章"""
     article_id = request.session['id']
     columns = request.session['columns']
 
@@ -577,7 +616,20 @@ def modify(request):
 
 
 # 测试单元
-def manage(request):
-    data = Python.python_manage.all()
-    print(data)
-    return HttpResponse('OK')
+# def manage(request):
+#     data = Python.python_manage.all()
+#     print(data)
+#     return HttpResponse('OK')
+
+def register(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        # 进行验证
+        if form.is_valid():
+            # data是字典
+            data = form.cleaned_data
+            print(data)
+        else:
+            # 验证不成功,把错误信息渲染到前端页面
+            return render(request, 'register.html', {'form': form})
+    return render(request, 'register.html')
