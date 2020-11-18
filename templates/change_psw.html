@@ -21,7 +21,7 @@
         <div class="publishArt">
             <h4>修改密码</h4>
             <div class="pubMain">
-                <form method="post" onsubmit="popWindow()">
+                <form method="post">
                     {% csrf_token %}
                     <h5 class="pubtitle">旧密码</h5>
                     <div class="pub-txt-bar">
@@ -37,10 +37,17 @@
                     <div class="pub-txt-bar">
                         <input name=new_password2 type="password" class="shuruTxt shuruTxt2">
 
+
+                        <p class="pubtitle" style="color: red">
+                            {{ error_message }}
+                        </p>
+
+
                     </div>
                     <div class="pub-btn">
                         <input type="submit" id="" value="确定" class="saveBtn">
                         <input type="button" id="" value="重置" class="resetBtn">
+
                     </div>
                 </form>
             </div>
@@ -52,11 +59,11 @@
 </div>
 
 
-<script>
-        function popWindow() {
-            alert("{{ error_message }}");
-        }
-</script>
+{#<script>#}
+{#        function popWindow() {#}
+{#            alert("{{ error_message }}");#}
+{#        }#}
+{#</script>#}
 
 </body>
 </html>

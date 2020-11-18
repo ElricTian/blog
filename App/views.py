@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
 
-from App.form import RegisterForm
+from App.form import RegisterForm, ChangePasswordForm
 from App.models import Python, Java, Web, Db, Game, Mobile, User
 from utils import bilibili_spider, to_hmac, generate_pin, csdn_spider
 
@@ -75,34 +75,39 @@ def pin_img(request):
 def change_password(request):
 
     if request.method == 'POST':
+        form = ChangePasswordForm(request.POST)
 
-        old_password = request.POST.get('old_password')
-        new_password = request.POST.get('new_password')
-        new_password2 = request.POST.get('new_password2')
+        if form.is_valid():
 
-        if len(old_password) and len(new_password) and len(new_password2) > 0:
-
+            data = form.cleaned_data
+            old_password = data['old_password']
+            new_password = data['new_password']
+            new_password2 = data['new_password2']
+            print(old_password)
+            # 查询
             username = request.session.get('username')
             user_info = User.objects.filter(username=username)
+            # 加密验证
             cipher = to_hmac.encryption(old_password)
 
             if user_info[0].password == cipher:
-                if new_password == new_password2:
-                    user = User.objects.get(uid=user_info[0].uid)
-                    new_cipher = to_hmac.encryption(new_password)
-                    user.password = new_cipher
-                    user.save()
-                    error_message = '修改成功,请重新登录'
-                    href = """<html><body onLoad="window.top.location.href='/logout'"></body></html>"""
-                    return HttpResponse(href)
 
-                else:
-                    error_message = '两次输入的新密码不相同!'
+                user = User.objects.get(uid=user_info[0].uid)
+                new_cipher = to_hmac.encryption(new_password)
+                user.password = new_cipher
+                user.save()
+                error_message = '修改成功,请重新登录'
+                href = """<html><body onLoad="window.top.location.href='/logout'"></body></html>"""
+                return HttpResponse(href)
             else:
-                error_message = '请输入正确的旧密码!'
+                error_message = '旧密码不正确'
         else:
-            error_message = '请勿为空!'
-
+            # 把错误信息传给前端
+            error_message = None
+            for value in form.errors.get_json_data().values():
+                error_message = value[0]['message']
+                break
+            return render(request, 'change_psw.html', locals())
     return render(request, 'change_psw.html', locals())
 
 
