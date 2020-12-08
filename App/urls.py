@@ -5,6 +5,7 @@ from App import views
 urlpatterns = [
     # 网站图标
     re_path(r'^favicon\.ico$', RedirectView.as_view(url=r'static/images/favicon.ico')),
+
     # 登录
     path('login/', views.login, name='login'),
     # 验证码图片
@@ -60,6 +61,7 @@ urlpatterns = [
 
     # 增加数据
     path('add_data/', views.add_data, name='add_data'),
-    # django form表单验证
+
+    # django form表单验证 以及用户认证
     path('register', views.register, name='register')
 ]

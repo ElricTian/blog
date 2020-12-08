@@ -1,3 +1,4 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models import Manager
 
@@ -208,5 +209,8 @@ class Db(models.Model):
         db_table = 'db'
 
 
-
+class NewUser(AbstractUser):
+    class Meta:
+        managed = True
+        db_table = 'new_user'
 

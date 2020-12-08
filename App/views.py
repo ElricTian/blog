@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
 
 from App.form import RegisterForm, ChangePasswordForm
-from App.models import Python, Java, Web, Db, Game, Mobile, User
+from App.models import Python, Java, Web, Db, Game, Mobile, User, NewUser
 from utils import bilibili_spider, to_hmac, generate_pin, csdn_spider
 
 
@@ -83,7 +83,7 @@ def change_password(request):
             old_password = data['old_password']
             new_password = data['new_password']
             new_password2 = data['new_password2']
-            print(old_password)
+
             # 查询
             username = request.session.get('username')
             user_info = User.objects.filter(username=username)
@@ -633,8 +633,19 @@ def register(request):
         if form.is_valid():
             # data是字典
             data = form.cleaned_data
-            print(data)
+            data.pop('confirm')
+
+            # 把用户写入数据库
+            # 这里的密码不能手动加密密码 Django用的是自己的加密方式
+            # 创建用户的方法必须是模型的方法
+            user = NewUser.objects.create_user(**data)
+            if user:
+                return HttpResponse('注册成功')
         else:
-            # 验证不成功,把错误信息渲染到前端页面
-            return render(request, 'register.html', {'form': form})
+            # 把错误信息传给前端
+            error_message = None
+            for value in form.errors.get_json_data().values():
+                error_message = value[0]['message']
+                break
+            return render(request, 'register.html', locals())
     return render(request, 'register.html')

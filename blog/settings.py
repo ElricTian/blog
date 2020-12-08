@@ -20,7 +20,9 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+
     'django.contrib.admin',
+    # 身份验证
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -34,6 +36,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    # 身份验证
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -110,6 +113,9 @@ USE_L10N = True
 
 USE_TZ = False
 
+# 指定自定义用户模型位置
+AUTH_USER_MODEL = 'App.NewUser'
+
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
@@ -118,12 +124,16 @@ STATICFILES_DIRS = [
 # 遇到的一些问题
 # iframe嵌入不允许访问 已解决 iframe scr=/目标视图/  settings加入 X_FRAME_OPTIONS = 'ALLOWALL'
 # iframe中 css失效,不小心删掉了 html5 声明
-# 生成验证码 如果将验证码渲染到登录界面 提交表单验证码会改变导致输入验证码和原验证码对不上,
+# 生成验证码 如果将验证码渲染到登录界面 提交表单验证码(异步)会改变导致输入验证码和原验证码对不上,
 # 这里将验证码图片存入缓存,在将验证码存入session中
-
 # 报错'set' object is not reversible  urls.py 里的 {}改成 []
-# iframe 跳转只跳转子页面不跳转整个页面 需要使用js跳转 详细查看change_password
+# iframe 跳转只跳转子页面不跳转整个页面 需要使用js跳转 详细查看视图change_password
 # 后端渲染js中的弹窗提示信息 点击第二次才出现上一次的值(异步问题需要ajax解决)
 # bug当有重复文章的时候title不是唯一标识 导致查询出错 需要吧id放在网页中(已修改)
 # 返回列表功能 js失效(未解决)
 # 设置cookie信息看不到过期时间,浏览器问题
+# 关于表单验证的问题,首先是错误信息提取参考了别人的代码,详见views.py倒数几行代码,从errors中提取
+# 表单单个字段验证时,抛出异常时使用了字典,导致一直报错(The argument `field` must be `None` when the `error`argument contains error)
+# 而全局验证时,必须使用字典把错误信息传递给字段(详见form.py)
+# 数据库迁移 生成表Django自带用户管理表时 报错,把Django自带表全删 再迁移
+

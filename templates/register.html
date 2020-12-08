@@ -9,10 +9,11 @@
     {% csrf_token %}
     用户名:<input type='text' name='username'>
     {#  报错信息 #}
-    {{ form.username.errors}}
+
     <br>
     密码:<input type='password' name='password'> <br>
-    确认密码:<input type="password" name="password"><br>
+    确认密码:<input type="password" name="confirm"><br>
+    {{ error_message }}<br>
     <input type="submit" value="注册">
 
 </form>

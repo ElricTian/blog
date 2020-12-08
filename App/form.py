@@ -10,8 +10,12 @@ class RegisterForm(forms.Form):
         'required': '用户名必须输入',
         'min_length': '用户名至少3个字符'
     })
-    password = forms.CharField(min_length=3, required=True, error_messages={
+    password = forms.CharField(min_length=6, required=True, error_messages={
         'required': '密码名必须输入',
+        'min_length': '密码至少为6位'
+    })
+    confirm = forms.CharField(min_length=6, required=True, error_messages={
+        'required': '请再次输入密码',
         'min_length': '密码至少为6位'
     })
 
@@ -38,6 +42,8 @@ class ChangePasswordForm(forms.Form):
 
     # 全局验证
     def clean(self):
+        # 这里使用get方法获取字典中的值,第二个参数为默认值
+        # 如果使用dict[],没有当前值则会报错
         new_password = self.cleaned_data.get('new_password', None)
         new_password2 = self.cleaned_data.get('new_password2', '')
         if new_password != new_password2:
